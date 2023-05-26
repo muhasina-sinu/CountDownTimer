@@ -1,7 +1,8 @@
-from plyer import notification
 from tkinter import messagebox
 from tkinter import *
 import time
+import os
+from os import system
 
 window = Tk()
 window.geometry("300x300")
@@ -15,6 +16,11 @@ seconds = IntVar()
 times = 0
 
 
+
+def notify(title, text):
+    os.system("""
+            osascript -e 'display notification "{}" with title "{}" '""".format(text, title))
+    system('say time out')
 
 
 def countdowntimer():
@@ -52,11 +58,14 @@ def countdowntimer():
         window.update()
         time.sleep(1)  
         
+        if times == -1:
+            notify("Count Down Timer", "Time Out")
+            time.sleep(5)  
+            
         
 def reset():
     global times 
-    
-    times = -1
+    times = -2
     seconds.set("0")
     minutes.set("0")
     hours.set("0")
