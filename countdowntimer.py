@@ -1,28 +1,28 @@
+# Import necessary libraries
 from tkinter import messagebox
 from tkinter import *
 import time
 import os
 from os import system
 
+# Create the main application window
 window = Tk()
 window.geometry("300x300")
 window.title("CountDownTimer")
 
-
-
+# Initialize variables to store hours, minutes, seconds, and time
 hours = IntVar()
 minutes = IntVar()
 seconds = IntVar()
 times = 0
 
-
-
+# Function to display notifications (used for timer completion)
 def notify(title, text):
     os.system("""
             osascript -e 'display notification "{}" with title "{}" '""".format(text, title))
     system('say time out')
 
-
+# Function to start the countdown timer
 def countdowntimer():
     global times
     
@@ -62,7 +62,7 @@ def countdowntimer():
             notify("Count Down Timer", "Time Out")
             time.sleep(5)  
             
-        
+# Function to reset the timer        
 def reset():
     global times 
     times = -2
@@ -72,21 +72,20 @@ def reset():
     
 
 
-
+# Create labels and entry widgets for setting the timer
 title = Label(window,text="Set the timer",font=("arial",16)).place(x=52, y=40)
 
 hour_entry = Entry(window, textvariable=hours, justify='center', width=4).place(x=50, y=80, height=50)
 minute_entry = Entry(window, textvariable=minutes, justify='center', width=4).place(x=120, y=80, height=50)
 second_entry = Entry(window, textvariable=seconds, justify='center', width=4).place(x=190, y=80, height=50)
 
-
 hour_label = Label(window,text="Hours").place(x=52, y=130)
 minute_label = Label(window,text="Minutes").place(x=117, y=130)
 second_label = Label(window,text="Seconds").place(x=186, y=130)
 
-
-
+# Create buttons to start the timer and reset it
 timer = Button(window, text= "START", width=8, fg="red", command=countdowntimer).place(x=30,y=180)
 clear = Button(window, text= "RESET", width=8, command=reset).place(x=150,y=180)
 
+# Start the main GUI event loop
 window.mainloop()
